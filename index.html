@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kishan Rajoria Portfolio</title>
+<meta name="description" content="Engineering portfolio of Kishan Rajoria, graduate mechanical engineer (BEng, Cardiff University).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+/* Layout idea: a cyanotype drawing set. Every section is a framed sheet with zone references; the footer is the title block. One visual world, single theme. */
+:root{
+  --bp:#123F73;          /* cyanotype field */
+  --bp-deep:#0C2E57;     /* panels, under-photos */
+  --line:#EAF2FF;        /* white linework and text */
+  --line-dim:#A9C3E6;    /* secondary text, faint lines */
+  --grid-minor:rgba(234,242,255,.06);
+  --grid-major:rgba(234,242,255,.13);
+  --red:#FF6A4D;         /* redline: revisions, failures, the one main button */
+  --display:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--bp)}
+body{
+  margin:0;background-color:var(--bp);color:var(--line);font-family:var(--body);font-size:16px;line-height:1.6;
+  background-image:
+    linear-gradient(var(--grid-major) 1px,transparent 1px),
+    linear-gradient(90deg,var(--grid-major) 1px,transparent 1px),
+    linear-gradient(var(--grid-minor) 1px,transparent 1px),
+    linear-gradient(90deg,var(--grid-minor) 1px,transparent 1px);
+  background-size:96px 96px,96px 96px,16px 16px,16px 16px;
+  background-position:-1px -1px;
+}
+img{max-width:100%;display:block}
+a{color:var(--line);text-underline-offset:3px}
+a:focus-visible,button:focus-visible{outline:2px dashed var(--line);outline-offset:3px}
+p{margin:0;text-wrap:pretty}
+h1,h2,h3{margin:0;font-family:var(--display);text-wrap:balance}
+h2{font-size:clamp(28px,4.2vw,46px);line-height:1.04;font-weight:700;font-stretch:92%;text-transform:uppercase;letter-spacing:.01em}
+h3{font-size:16px;font-weight:600;font-stretch:110%;text-transform:uppercase;letter-spacing:.06em;line-height:1.3}
+.mono{font-family:var(--mono)}
+.label{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--line-dim)}
+.wrap{max-width:1160px;margin:0 auto;padding:0 28px}
+
+/* ---------- top bar ---------- */
+.bar{position:sticky;top:0;z-index:20;background:var(--bp);border-bottom:1.5px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:52px;flex-wrap:wrap}
+.dwg{font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--line);text-decoration:none;white-space:nowrap}
+.dwg b{font-weight:600}
+.bar nav ul{list-style:none;display:flex;flex-wrap:wrap;margin:0;padding:0}
+.bar nav a{display:inline-block;padding:8px 10px;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;color:var(--line-dim);position:relative}
+.bar nav a::after{content:"";position:absolute;left:10px;right:10px;bottom:4px;height:1px;background:var(--line);transform:scaleX(0);transform-origin:left;transition:transform .35s ease}
+.bar nav a:hover{color:var(--line)}
+.bar nav a:hover::after,.bar nav a.on::after{transform:scaleX(1)}
+.bar nav a.on{color:var(--line)}
+
+/* ---------- sheet frame ---------- */
+.sheet{position:relative;margin:56px 0;border:1.5px solid var(--line);padding:28px}
+.sheet::before{content:"";position:absolute;inset:6px;border:1px solid var(--grid-major);pointer-events:none}
+.zx{position:absolute;left:0;right:0;top:-20px;display:grid;grid-template-columns:repeat(8,1fr);font-family:var(--mono);font-size:10.5px;color:var(--line-dim)}
+.zx span{text-align:center;border-left:1px solid var(--grid-major);line-height:16px}
+.zx span:first-child{border-left:0}
+.zy{position:absolute;top:0;bottom:0;left:-20px;display:grid;grid-template-rows:repeat(4,1fr);font-family:var(--mono);font-size:10.5px;color:var(--line-dim)}
+.zy span{display:flex;align-items:center;justify-content:center;width:16px;border-top:1px solid var(--grid-major)}
+.zy span:first-child{border-top:0}
+.sheetno{position:absolute;right:-1.5px;top:-1.5px;transform:translateY(-100%);font-family:var(--mono);font-size:11px;letter-spacing:.08em;border:1.5px solid var(--line);border-bottom:0;padding:3px 10px;background:var(--bp);z-index:3}
+
+/* dimension line above headings */
+.dim{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:11.5px;color:var(--line-dim);letter-spacing:.06em;margin-bottom:14px}
+.dim i{flex:1;height:1px;background:var(--line-dim);position:relative;transform-origin:left;transition:transform 1.1s cubic-bezier(.2,.7,.2,1)}
+.dim i::before,.dim i::after{content:"";position:absolute;top:-4px;width:1px;height:9px;background:var(--line-dim)}
+.dim i::before{left:0}.dim i::after{right:0}
+.js .dim.wait i{transform:scaleX(0)}
+
+/* ---------- hero ---------- */
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:24px;align-items:center}
+.hero-text{display:flex;flex-direction:column;gap:22px;padding:8px 0}
+.hero h1{font-size:clamp(52px,8.5vw,112px);line-height:.86;font-weight:800;font-stretch:68%;text-transform:uppercase;letter-spacing:.005em}
+.hero h1 .o{display:block;color:transparent;-webkit-text-stroke:1.5px var(--line)}
+.lede{font-size:18px;line-height:1.55;max-width:44ch}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;font-family:var(--mono);font-size:13px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;color:var(--line);border:1.5px solid var(--line);background:transparent;transition:background .2s,color .2s}
+.btn:hover{background:var(--line);color:var(--bp)}
+.btn.red{border-color:var(--red);background:var(--red);color:#0C1F3A;font-weight:600}
+.btn.red:hover{background:transparent;color:var(--red)}
+.hero-svg{width:100%;height:auto;overflow:visible}
+.hero-svg .ln{fill:none;stroke:var(--line);stroke-width:1.4;vector-effect:non-scaling-stroke}
+.hero-svg .thin{stroke-width:.8;stroke:var(--line-dim)}
+.hero-svg .cl{stroke-dasharray:14 4 3 4;stroke:var(--line-dim);stroke-width:.8}
+.hero-svg text{font-family:var(--mono);font-size:12px;fill:var(--line);letter-spacing:.04em}
+.hero-svg text.dimtxt{fill:var(--line-dim);font-size:11px}
+.draw{stroke-dasharray:1;stroke-dashoffset:0}
+.js .draw{animation:plot 2.4s cubic-bezier(.45,.05,.25,1) both;animation-delay:var(--d,0s)}
+@keyframes plot{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+.js .fadein{animation:fade .8s ease both;animation-delay:var(--d,0s)}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.tb{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1.5px solid var(--line);margin-top:28px}
+.tb div{padding:10px 14px;border-right:1px solid var(--line-dim);display:flex;flex-direction:column;gap:2px;font-size:14px;line-height:1.4}
+.tb div:last-child{border-right:0}
+.tb b{font-weight:500}
+
+/* scan line that sweeps the hero once on load */
+.scan{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.scan::after{content:"";position:absolute;top:0;bottom:0;width:2px;left:0;background:var(--line);opacity:0;box-shadow:0 0 18px 2px rgba(234,242,255,.35)}
+.js .scan::after{animation:sweep 2.6s .2s ease-in-out both}
+@keyframes sweep{0%{left:0;opacity:0}8%{opacity:.8}92%{opacity:.8}100%{left:100%;opacity:0}}
+
+/* ---------- index ---------- */
+.index{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+.index a{display:flex;flex-direction:column;gap:6px;padding:18px 20px 20px;text-decoration:none;border-right:1px solid var(--line-dim);transition:background .2s}
+.index a:last-child{border-right:0}
+.index a:hover{background:var(--bp-deep)}
+.index .n{font-family:var(--display);font-weight:800;font-stretch:70%;font-size:44px;line-height:1;color:transparent;-webkit-text-stroke:1.2px var(--line)}
+.index a:hover .n{color:var(--line)}
+.index .t{font-weight:600;line-height:1.3}
+.index .r{font-size:14px;color:var(--line-dim);line-height:1.45}
+
+/* ---------- project content ---------- */
+.p-top{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:end}
+.p-num{font-family:var(--display);font-weight:800;font-stretch:66%;font-size:clamp(72px,10vw,128px);line-height:.8;color:transparent;-webkit-text-stroke:1.5px var(--line-dim)}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--line-dim);margin-bottom:10px}
+.meta{margin-top:22px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1.5px solid var(--line);border-bottom:1px solid var(--line-dim)}
+.meta div{padding:10px 14px 10px 0;display:flex;flex-direction:column;gap:2px;font-size:14px;line-height:1.4}
+.rev{color:var(--red);display:inline-flex;align-items:center;gap:6px;font-weight:500}
+.rev svg{flex:0 0 auto}
+.cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px;margin-top:28px}
+.cols > div{display:flex;flex-direction:column;gap:8px}
+.cols p{max-width:62ch}
+figure{margin:0;display:flex;flex-direction:column;gap:8px}
+figcaption{font-size:13.5px;color:var(--line-dim);line-height:1.45}
+figcaption .mono{color:var(--line);font-size:11.5px;margin-right:8px;letter-spacing:.06em}
+
+/* photos and plots in true colour inside a blueprint frame */
+.print{position:relative;border:1.5px solid var(--line);background:var(--bp-deep);overflow:hidden}
+.print img{width:100%;height:100%;object-fit:cover}
+.print.contain img{object-fit:contain;background:#fff}
+.corner{position:absolute;width:12px;height:12px;border-color:var(--line);border-style:solid;z-index:2;pointer-events:none}
+.corner.tl{top:6px;left:6px;border-width:1.5px 0 0 1.5px}.corner.br{bottom:6px;right:6px;border-width:0 1.5px 1.5px 0}
+
+/* white-line drawing: invert and screen onto the blue */
+.whiteprint{border:1.5px solid var(--line);background:var(--bp);padding:12px;overflow:hidden}
+.whiteprint img{width:100%;height:auto;filter:invert(1) grayscale(1) contrast(1.15);mix-blend-mode:screen;opacity:.95}
+
+.ar-wide{aspect-ratio:2.41/1}
+.ar-43{aspect-ratio:4/3}
+.ar-1{aspect-ratio:1/1}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-top:26px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:26px}
+.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:20px}
+
+/* leader callouts on a photo */
+.callout-wrap{position:relative}
+.leader{position:absolute;z-index:3;display:flex;align-items:center;gap:0;pointer-events:none;font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap}
+.leader .dot{width:9px;height:9px;border:1.5px solid var(--line);background:var(--bp);border-radius:50%;flex:0 0 auto}
+.leader .stem{height:1px;background:var(--line);width:var(--w,48px);transform-origin:left;transition:transform .8s cubic-bezier(.2,.7,.2,1) .2s}
+.leader .txt{background:var(--bp);border:1px solid var(--line);padding:3px 7px;transition:opacity .4s ease .8s}
+.leader.left{flex-direction:row-reverse}
+.leader.left .stem{transform-origin:right}
+.js .callout-wrap.wait .stem{transform:scaleX(0)}
+.js .callout-wrap.wait .txt{opacity:0}
+
+/* architecture flow */
+.flow{display:flex;align-items:stretch;margin-top:14px;overflow-x:auto;padding-bottom:6px}
+.node{flex:1 0 150px;border:1.5px solid var(--line);padding:10px 12px;font-size:13.5px;line-height:1.4;background:var(--bp)}
+.node b{display:block;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;margin-bottom:2px}
+.node.end{background:var(--line);color:var(--bp)}
+.stack{flex:1 0 160px;display:flex;flex-direction:column;gap:8px}
+.stack .node{flex:1 1 auto}
+.arr{flex:0 0 48px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:var(--mono);font-size:10.5px;color:var(--line-dim);gap:2px}
+.arr svg{overflow:visible}
+.arr path{stroke:var(--line);stroke-dasharray:5 4;animation:flow 1s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-9}}
+
+table{width:100%;border-collapse:collapse;font-size:14.5px;line-height:1.45}
+th,td{text-align:left;vertical-align:top;padding:10px 14px 10px 0;border-bottom:1px solid var(--line-dim)}
+th{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--line-dim);font-weight:500;border-bottom:1.5px solid var(--line)}
+td.k{font-weight:600;width:190px}
+td.n{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.tablebox{overflow-x:auto;margin-top:14px}
+
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:26px}
+.stat{border:1.5px solid var(--line);padding:14px 16px 12px;display:flex;flex-direction:column;gap:4px;position:relative}
+.stat .v{font-family:var(--display);font-weight:800;font-stretch:78%;font-size:36px;line-height:1.05;font-variant-numeric:tabular-nums}
+.stat .d{font-size:14px;line-height:1.45;color:var(--line-dim)}
+.stat.red{border-color:var(--red)}
+.stat.red .v{color:var(--red)}
+
+.calc{border:1.5px dashed var(--line-dim);padding:18px 20px;display:flex;flex-direction:column;gap:10px;background:rgba(12,46,87,.55)}
+.calc dl{margin:0;display:grid;grid-template-columns:110px minmax(0,1fr);gap:8px 14px;font-size:14px;line-height:1.45}
+.calc dt{font-family:var(--mono);font-size:12px;color:var(--line-dim);text-transform:uppercase;letter-spacing:.05em;padding-top:2px}
+.calc dd{margin:0}
+
+.steps{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;margin-top:12px}
+.steps div{border:1.5px solid var(--line);padding:10px;font-size:13.5px;line-height:1.35}
+.steps b{display:block;font-family:var(--mono);font-size:12px;letter-spacing:.06em}
+.steps .fail{border:1.5px dashed var(--red);color:var(--red)}
+.steps .final{background:var(--line);color:var(--bp)}
+
+.bars{display:flex;flex-direction:column;gap:10px}
+.bar-r{display:grid;grid-template-columns:120px minmax(0,1fr);gap:12px;align-items:center;font-size:14px}
+.track{display:flex;align-items:center;gap:8px}
+.fill{height:18px;border:1.5px solid var(--line);background:repeating-linear-gradient(-45deg,transparent 0 5px,rgba(234,242,255,.45) 5px 6px);width:var(--w);transform-origin:left;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
+.fill.hi{border-color:var(--red);background:repeating-linear-gradient(-45deg,transparent 0 5px,rgba(255,106,77,.6) 5px 6px)}
+.val{font-family:var(--mono);font-size:13px;font-variant-numeric:tabular-nums}
+.js .bars.wait .fill{transform:scaleX(0)}
+
+.callouts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.callouts > div{border-top:1.5px solid var(--line);padding-top:12px;display:flex;flex-direction:column;gap:6px}
+.callouts p{font-size:15px}
+ul.clean{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px}
+ul.clean li::marker{content:"— ";color:var(--line-dim)}
+
+.skills{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;margin-top:24px}
+.skills > div{border-top:1.5px solid var(--line);padding-top:12px;display:flex;flex-direction:column;gap:6px;font-size:14.5px;line-height:1.5}
+.xp{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-top:28px}
+.xp > div{border:1.5px solid var(--line);padding:16px 18px;display:flex;flex-direction:column;gap:4px}
+
+/* ---------- title block footer ---------- */
+.titleblock{margin:72px 0 56px;border:1.5px solid var(--line);display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;scroll-margin-top:70px}
+.titleblock > div{border-right:1px solid var(--line-dim);border-bottom:1px solid var(--line-dim);padding:12px 14px;display:flex;flex-direction:column;gap:4px;font-size:14px;line-height:1.4}
+.titleblock .big{grid-row:span 2;justify-content:flex-end}
+.titleblock .big span:last-child{font-family:var(--display);font-weight:800;font-stretch:72%;font-size:clamp(34px,5vw,58px);line-height:.92;text-transform:uppercase}
+.titleblock .wide{grid-column:span 3}
+.titleblock > div:nth-child(4n){border-right:0}
+.titleblock .contact a{color:var(--line)}
+
+main,header,footer{position:relative;z-index:2}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .js .dim.wait i,.js .bars.wait .fill,.js .callout-wrap.wait .stem{transform:none}
+  .js .callout-wrap.wait .txt{opacity:1}
+}
+@media (max-width: 920px){
+  .hero{grid-template-columns:1fr}
+  .tb,.meta,.stats,.skills{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .tb div:nth-child(2){border-right:0}
+  .tb div:nth-child(-n+2){border-bottom:1px solid var(--line-dim)}
+  .index{grid-template-columns:1fr}
+  .index a{border-right:0;border-bottom:1px solid var(--line-dim)}
+  .index a:last-child{border-bottom:0}
+  .cols,.grid2,.xp,.callouts{grid-template-columns:1fr}
+  .grid4{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .steps{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .zy{display:none}
+  .titleblock{grid-template-columns:1fr 1fr}
+  .titleblock .big{grid-row:auto;grid-column:span 2}
+  .titleblock .wide{grid-column:span 2}
+  .titleblock > div{border-right:1px solid var(--line-dim)}
+  .titleblock > div:nth-child(odd){border-right:1px solid var(--line-dim)}
+}
+@media (max-width: 520px){
+  .wrap{padding:0 16px}
+  .sheet{padding:20px 16px}
+  .zx{display:none}
+  .grid3{grid-template-columns:1fr}
+  .tb,.meta,.stats,.skills{grid-template-columns:1fr}
+  .tb div{border-right:0;border-bottom:1px solid var(--line-dim)}
+  .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .calc dl{grid-template-columns:1fr;gap:2px}
+  .calc dd{margin-bottom:8px}
+  .bar-r{grid-template-columns:96px minmax(0,1fr)}
+  td.k{width:auto}
+  .leader .txt{font-size:10px}
+  .titleblock{grid-template-columns:1fr}
+  .titleblock .big,.titleblock .wide{grid-column:auto}
+}
+</style>
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+
+<header class="bar">
+  <div class="wrap">
+    <a class="dwg" href="#top">DWG <b>KR-2026-001</b> · ENGINEERING PORTFOLIO</a>
+    <nav aria-label="Sheets">
+      <ul>
+        <li><a href="#smart-glove">01 Glove</a></li>
+        <li><a href="#gearbox">02 Gearbox</a></li>
+        <li><a href="#hydroponics">03 Hydroponics</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap" id="top">
+
+  <!-- SHEET 1 · HERO -->
+  <section class="sheet" aria-label="Introduction" style="margin-top:64px">
+    <div class="sheetno">SHEET 1 OF 5</div>
+    <div class="zx" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span></div>
+    <div class="zy" aria-hidden="true"><span>A</span><span>B</span><span>C</span><span>D</span></div>
+    <div class="scan" aria-hidden="true"></div>
+    <div class="hero">
+      <div class="hero-text">
+        <div class="label">Graduate mechanical engineer · Cardiff University</div>
+        <h1>Kishan <span class="o">Rajoria</span></h1>
+        <p class="lede">I take problems from hand calculations, through CAD and simulation, to a physical prototype, then test it against the prediction.</p>
+        <div class="cta">
+          <a class="btn red" href="#smart-glove">View the projects</a>
+          <a class="btn" href="#contact">Contact</a>
+        </div>
+      </div>
+      <svg class="hero-svg" viewBox="0 0 560 500" role="img" aria-label="Line drawing of the lightweight output gear from project 02: outside diameter 80.22 mm, bore 35 mm H7, with eight lightening pockets">
+        <g id="gear"></g>
+        <!-- centre lines -->
+        <path class="ln cl draw" pathLength="1" style="--d:.1s" d="M90 262H470"></path>
+        <path class="ln cl draw" pathLength="1" style="--d:.1s" d="M280 72V452"></path>
+        <!-- OD dimension -->
+        <path class="ln thin draw" pathLength="1" style="--d:1.6s" d="M119.6 255V52M440.4 255V52"></path>
+        <path class="ln draw" pathLength="1" style="--d:1.9s" d="M119.6 62H440.4"></path>
+        <path class="ln fadein" style="--d:2.4s;fill:var(--line);stroke:none" d="M119.6 62l10 -3.5v7zM440.4 62l-10 -3.5v7z"></path>
+        <text class="fadein" style="--d:2.5s" x="280" y="52" text-anchor="middle">Ø80.22</text>
+        <!-- bore leader -->
+        <path class="ln draw" pathLength="1" style="--d:2.1s" d="M330 312L410 404H530"></path>
+        <circle class="fadein" style="--d:2.1s" cx="330" cy="312" r="3" fill="var(--line)"></circle>
+        <text class="fadein" style="--d:2.7s" x="414" y="396">Ø35 H7 +0.02/0</text>
+        <!-- pocket leader -->
+        <path class="ln draw" pathLength="1" style="--d:2.3s" d="M206 330L130 432H20"></path>
+        <circle class="fadein" style="--d:2.3s" cx="206" cy="330" r="3" fill="var(--line)"></circle>
+        <text class="fadein" style="--d:2.9s" x="124" y="424" text-anchor="end">8× LIGHTENING POCKETS</text>
+        <text class="dimtxt fadein" style="--d:3s" x="280" y="490" text-anchor="middle">GEAR · FINAL DESIGN · FACE WIDTH 34.00 ±0.01 · NOT TO SCALE</text>
+      </svg>
+    </div>
+    <div class="tb">
+      <div><span class="label">Degree</span><b>BEng (Hons) Mechanical Engineering, 2:1</b></div>
+      <div><span class="label">University</span><b>Cardiff University, 2026</b></div>
+      <div><span class="label">Based in</span><b>London · open to relocation</b></div>
+      <div><span class="label">Status</span><b>Seeking graduate engineering roles</b></div>
+    </div>
+  </section>
+
+  <!-- INDEX -->
+  <section class="sheet" aria-label="Project index" style="padding:0;margin-top:40px">
+    <div class="index">
+      <a href="#smart-glove"><span class="n">01</span><span class="t">Smart Glove for home hand rehabilitation</span><span class="r">Final-year individual project. Accurate 0–60° finger tracking and live 3D wrist motion.</span></a>
+      <a href="#gearbox"><span class="n">02</span><span class="t">Lightweight gearbox for an electric race car</span><span class="r">Group project. Seven FEA iterations, then the model checked against a physical test.</span></a>
+      <a href="#hydroponics"><span class="n">03</span><span class="t">Modular indoor hydroponic system</span><span class="r">Group project. DFMA cut parts from 29 to 13 and assembly time by 62%.</span></a>
+    </div>
+  </section>
+
+  <!-- SHEET 2 · SMART GLOVE -->
+  <section class="sheet" id="smart-glove" aria-labelledby="h-glove" style="scroll-margin-top:90px">
+    <div class="sheetno">SHEET 2 OF 5</div>
+    <div class="zx" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span></div>
+    <div class="zy" aria-hidden="true"><span>A</span><span>B</span><span>C</span><span>D</span></div>
+    <div class="p-top">
+      <div>
+        <div class="dim wait"><span>PROJECT 01</span><i></i><span>FINAL-YEAR · INDIVIDUAL</span></div>
+        <h2 id="h-glove">Smart Glove: a low-cost wearable for home hand rehabilitation</h2>
+      </div>
+      <div class="p-num" aria-hidden="true">01</div>
+    </div>
+    <div class="meta">
+      <div><span class="label">Role</span>Sole designer, builder and tester</div>
+      <div><span class="label">When</span>Oct 2025 – Mar 2026</div>
+      <div><span class="label">Hardware</span>2× BBC micro:bit, flex sensor, PLA parts</div>
+      <div><span class="label">Software</span>MATLAB acquisition, filtering, GUI</div>
+    </div>
+
+    <figure style="margin-top:26px">
+      <div class="callout-wrap wait">
+        <div class="print ar-wide"><span class="corner tl"></span><span class="corner br"></span><img src="glove_worn.jpg" alt="The finished smart glove worn on the hand, from above and from the side"></div>
+        <div class="leader" style="left:11%;top:50%;--w:40px;transform:translate(-4px,-4px)"><span class="dot"></span><span class="stem"></span><span class="txt">Hand micro:bit</span></div>
+        <div class="leader" style="left:32%;top:36%;--w:40px;transform:translate(-4px,-4px)"><span class="dot"></span><span class="stem"></span><span class="txt">Wrist micro:bit</span></div>
+        <div class="leader left" style="right:20%;top:30%;--w:40px;transform:translate(4px,-4px)"><span class="dot"></span><span class="stem"></span><span class="txt">Printed mount + edge connector</span></div>
+      </div>
+      <figcaption><span class="mono">FIG 1.1</span>Hand and wrist micro:bits, a flex sensor over the index-finger PIP joint, and wiring hidden between two glove layers.</figcaption>
+    </figure>
+
+    <div class="cols">
+      <div>
+        <h3>The problem</h3>
+        <p>Commercial rehabilitation gloves work, but they cost far more than most patients or primary care can afford. Manual goniometry is cheap, but it only gives static readings with 5–7° of error. The aim was a low-cost glove that tracks finger flexion and 3D wrist motion in real time, for use at home.</p>
+      </div>
+      <div>
+        <h3>My approach</h3>
+        <p>Building on three earlier Cardiff iterations, I redesigned the hardware for durability and repeatable sensor placement, added finger tracking with a flex sensor, and wrote the MATLAB pipeline that calibrates, filters and plots the data live.</p>
+      </div>
+    </div>
+
+    <div style="margin-top:34px">
+      <h3>System architecture</h3>
+      <div class="flow" role="img" aria-label="Flex sensor and wrist micro:bit feed the hand micro:bit, which sends data by radio to a receiver micro:bit, then over USB to MATLAB">
+        <div class="stack">
+          <div class="node"><b>Flex sensor</b>PIP joint, 10 kΩ voltage divider</div>
+          <div class="node"><b>Wrist micro:bit</b>Accelerometer + magnetometer</div>
+        </div>
+        <div class="arr"><svg width="30" height="12" viewBox="0 0 30 12" fill="none" stroke-width="1.5" aria-hidden="true"><path d="M0 6h24"></path><path d="M19 1l6 5-6 5" style="stroke-dasharray:none;animation:none"></path></svg></div>
+        <div class="node"><b>Hand micro:bit</b>Edge-connector breakout, ADC on pin 0, accel + magnetometer</div>
+        <div class="arr">RADIO<svg width="30" height="12" viewBox="0 0 30 12" fill="none" stroke-width="1.5" aria-hidden="true"><path d="M0 6h24"></path><path d="M19 1l6 5-6 5" style="stroke-dasharray:none;animation:none"></path></svg></div>
+        <div class="node"><b>Receiver micro:bit</b>Polls both units; USB serial at 115 200 baud</div>
+        <div class="arr">USB<svg width="30" height="12" viewBox="0 0 30 12" fill="none" stroke-width="1.5" aria-hidden="true"><path d="M0 6h24"></path><path d="M19 1l6 5-6 5" style="stroke-dasharray:none;animation:none"></path></svg></div>
+        <div class="node end"><b>MATLAB</b>Median + EMA filtering, calibration, Euler angles, live plots</div>
+      </div>
+    </div>
+
+    <div style="margin-top:34px">
+      <h3>Design changes I made</h3>
+      <div class="tablebox">
+        <table>
+          <thead><tr><th scope="col">Change</th><th scope="col">Why it mattered</th></tr></thead>
+          <tbody>
+            <tr><td class="k">Glove-on-glove build</td><td>Wiring soldered, heat-shrunk and routed between two glove layers, sized to full wrist travel, so nothing snags or pulls on a connection.</td></tr>
+            <tr><td class="k">3D-printed anchors</td><td>A curved PLA mount for the micro:bit and two flex-sensor holders keep the bend radius consistent between tests.</td></tr>
+            <tr><td class="k">Edge connector</td><td>A friction-locked breakout replaced alligator clips, ending signal dropouts and exposing spare GPIO for more fingers or haptics.</td></tr>
+            <tr><td class="k">PIP relief hole</td><td>User testing showed the outer glove resisted flexion. A cut-out at the joint lets the sensor read the true range of motion.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="grid2" style="margin-top:36px;align-items:start">
+      <figure>
+        <div class="print ar-wide" style="aspect-ratio:2.2/1"><span class="corner tl"></span><span class="corner br"></span><img src="glove_test.jpg" alt="Finger flexion measured against a goniometer while wearing the glove"></div>
+        <figcaption><span class="mono">FIG 1.2</span>Flex sensor checked against a goniometer at the PIP joint, 0–100°.</figcaption>
+      </figure>
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <h3>Finger test</h3>
+          <p>Calibrated resistance against angle in 20° steps and fitted a linear model (R = 1.71θ + 613.7), then compared live readings with goniometer angles.</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <h3>Wrist test</h3>
+          <p>Calibrated both magnetometers by ellipsoid fitting (MATLAB magcal), logged repeated flexion/extension, deviation and rotation, and computed relative Euler angles between hand and wrist.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><span class="v">0–60°</span><span class="d">Accurate finger range, covering most daily-living movements</span></div>
+      <div class="stat red"><span class="v">13°</span><span class="d">Error at 100° (read 87°) from sensor non-linearity above ~60°</span></div>
+      <div class="stat"><span class="v">9.9 Hz</span><span class="d">Wrist sampling rate over 350 samples, enough for slow rehab motion</span></div>
+      <div class="stat"><span class="v">1.96 / 1.79</span><span class="d">Magnetometer coverage ratios, both inside the 3.0 limit</span></div>
+    </div>
+
+    <div class="grid2">
+      <figure>
+        <div class="print contain ar-43"><span class="corner tl"></span><span class="corner br"></span><img src="glove_realtime.jpg" alt="MATLAB plot of real-time finger bend angle after filtering, rising smoothly from about 10 to 52 degrees"></div>
+        <figcaption><span class="mono">FIG 1.3</span>Live finger angle after median + EMA filtering: steady at rest, smooth on movement.</figcaption>
+      </figure>
+      <figure>
+        <div class="print contain ar-43"><span class="corner tl"></span><span class="corner br"></span><img src="glove_wrist_angles.jpg" alt="Stacked MATLAB plots of wrist flexion, deviation, rotation and total rotation over time"></div>
+        <figcaption><span class="mono">FIG 1.4</span>Wrist joint angles over five repetitions: flexion/extension clearly dominant, as expected.</figcaption>
+      </figure>
+    </div>
+
+    <div class="cols">
+      <div>
+        <h3>What the data showed</h3>
+        <ul class="clean">
+          <li>Resistance flattened at high bend (741 Ω at 80°, 770 Ω at 100°), so a linear calibration under-reads beyond 60°.</li>
+          <li>Two-stage filtering removed noise but added a short lag on fast movements.</li>
+          <li>Wrist angles depended on starting arm orientation, which gave implausible values in one test.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>What I would do next</h3>
+        <ul class="clean">
+          <li>Replace the linear fit with a polynomial calibration, recalibrated each session.</li>
+          <li>Add a gyroscope (9-axis IMU) for sensor fusion and faster movements.</li>
+          <li>Plan for MDR 2017/745 and GDPR before any move toward clinical use.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SHEET 3 · GEARBOX -->
+  <section class="sheet" id="gearbox" aria-labelledby="h-gear" style="scroll-margin-top:90px">
+    <div class="sheetno">SHEET 3 OF 5</div>
+    <div class="zx" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span></div>
+    <div class="zy" aria-hidden="true"><span>A</span><span>B</span><span>C</span><span>D</span></div>
+    <div class="p-top">
+      <div>
+        <div class="dim wait"><span>PROJECT 02</span><i></i><span>GROUP · TEAM OF 6</span></div>
+        <h2 id="h-gear">Lightweight two-stage reduction gearbox for an electric race car</h2>
+      </div>
+      <div class="p-num" aria-hidden="true">02</div>
+    </div>
+    <div class="meta">
+      <div><span class="label">My role</span>Hand calculations before FEA; iterative CAD/FEA refinement for higher loads</div>
+      <div><span class="label">When</span>2024 – 25</div>
+      <div><span class="label">Tools</span>SolidWorks, ANSYS, Excel</div>
+      <div><span class="label">Limit</span>300 MPa allowable stress</div>
+    </div>
+
+    <div class="cols">
+      <div>
+        <h3>The brief</h3>
+        <p>Design the output stage of a two-stage reduction gearbox for an electric motorsport vehicle, then take as much mass as possible out of the gear, shaft and flange without exceeding the allowable stress. Less rotating mass means less inertia, quicker acceleration and lower losses.</p>
+        <h3 style="margin-top:14px">How we approached it</h3>
+        <p>Size every component by hand, model it in SolidWorks, then use ANSYS static structural analysis and topology optimisation to remove material where stress was low, checking each change against the limit.</p>
+        <h3 style="margin-top:14px">My contribution</h3>
+        <p>I helped work through the theory calculations that sized the components before the CAD model went into FEA. I then helped with the iterative design changes, refining the model through repeated FEA runs so it could carry a larger load.</p>
+      </div>
+      <div class="calc">
+        <span class="label">Hand calculations · Excel model</span>
+        <dl>
+          <dt>Input</dt><dd class="mono">100 N·m at 6 000 rpm</dd>
+          <dt>Gear loads</dt><dd class="mono">Ft = 4.21 kN / 7.21 kN</dd>
+          <dt>Gear sizing</dt><dd>Lewis bending equation with velocity factor; face width checked between 3p and 5p</dd>
+          <dt>Shaft</dt><dd>Tresca and von Mises criteria: ≈16 mm minimum diameter</dd>
+          <dt>Bearings</dt><dd>SKF NU 2304 ECP cylindrical roller: L10h ≈ 19 100 h, static safety S0 = 3.22 (≥ 2.5)</dd>
+          <dt>Fatigue</dt><dd>Marin endurance-limit factors; Kt at shoulders and keyways</dd>
+        </dl>
+      </div>
+    </div>
+
+    <div class="grid3">
+      <figure>
+        <div class="print ar-1"><span class="corner tl"></span><span class="corner br"></span><img src="gear_fea_disc.jpg" alt="ANSYS von Mises stress plot of the gear disc with lightening holes"></div>
+        <figcaption><span class="mono">FIG 2.1</span>Gear disc stress after adding lightening holes.</figcaption>
+      </figure>
+      <figure>
+        <div class="print ar-1"><span class="corner tl"></span><span class="corner br"></span><img src="gear_topology.jpg" alt="ANSYS topology optimisation of the flange, with material marked for removal between the bolt holes"></div>
+        <figcaption><span class="mono">FIG 2.2</span>Flange topology optimisation; marked regions removed.</figcaption>
+      </figure>
+      <figure>
+        <div class="print ar-1"><span class="corner tl"></span><span class="corner br"></span><img src="gear_render2.jpg" alt="Rendered final assembly of the lightweight gear, splined shaft and flange"></div>
+        <figcaption><span class="mono">FIG 2.3</span>Final optimised assembly.</figcaption>
+      </figure>
+    </div>
+
+    <div style="margin-top:30px">
+      <span class="label">Gear iterations against the 300 MPa limit</span>
+      <div class="steps">
+        <div><b>V1</b>Solid baseline</div>
+        <div><b>V2</b>14 mm web</div>
+        <div><b>V3</b>6 mm web</div>
+        <div><b>V4</b>6 mm holes</div>
+        <div class="fail"><b>V5</b>Larger holes: failed</div>
+        <div><b>V6</b>Holes +3 mm</div>
+        <div class="final"><b>V7</b>Double holes: 206 MPa</div>
+      </div>
+    </div>
+
+    <div class="cols">
+      <div style="border-top:1.5px solid var(--line);padding-top:12px">
+        <h3>Problem: stress spikes at the keyways</h3>
+        <p>Peak stress sat in the keyway corners even with a finer mesh. We identified it as a singularity, averaged stress across the keyway face, and confirmed the value was within the allowable.</p>
+      </div>
+      <div style="border-top:1.5px solid var(--line);padding-top:12px">
+        <h3>Problem: imbalance at speed</h3>
+        <p>The asymmetric cut-outs moved the centre of mass off the axis of rotation. A counterweight on the gear rim, where each gram has the most effect, cut the offset from <b>2.1 mm to 0.012 mm</b>.</p>
+      </div>
+    </div>
+
+    <figure style="margin-top:32px">
+      <div class="whiteprint"><img src="gear_drawing.jpg" alt="A2 SolidWorks drawing of the gear, flange, shaft and collars with sections, fits and geometric tolerances, plus an isometric view of the assembly"></div>
+      <figcaption><span class="mono">FIG 2.4</span>Final A2 manufacturing drawing, shown as a whiteprint: H7/H8 fits, s6 shaft interference, 0.01 mm concentricity and perpendicularity controls, ground gear teeth.</figcaption>
+    </figure>
+
+    <div style="margin-top:40px">
+      <h3>Does the FEA match reality? Load–deflection test of an SLS prototype</h3>
+      <div class="grid2" style="margin-top:16px;align-items:start">
+        <figure>
+          <div class="print" style="aspect-ratio:1.51/1"><span class="corner tl"></span><span class="corner br"></span><img src="gear_rig.jpg" alt="CAD model of the test rig with the shaft in bushings and a loading ram on the gear teeth"></div>
+          <figcaption><span class="mono">FIG 2.5</span>Test rig: shaft held in bushings, flange fixed, load applied to the gear teeth.</figcaption>
+        </figure>
+        <div style="display:flex;flex-direction:column;gap:18px">
+          <p>The gear, shaft and flange were SLS-printed in PA2200 nylon. Test loads were scaled from steel by the ratio of tensile strengths (45/600 MPa) and the same case was run in ANSYS. The rig's 10 mm travel limit stopped the test at 334 N, so ten load points from the test were re-run in ANSYS for a direct comparison.</p>
+          <div class="bars wait" role="img" aria-label="Compliance: FEA 6.02 mm per kN, test 14.82 mm per kN. Deflection at 334 N: FEA 2.0 mm, test 10.0 mm.">
+            <span class="label">Compliance, mm/kN</span>
+            <div class="bar-r"><span>FEA</span><div class="track"><div class="fill" style="--w:33%"></div><span class="val">6.02</span></div></div>
+            <div class="bar-r"><span>Test</span><div class="track"><div class="fill hi" style="--w:80%"></div><span class="val">14.82</span></div></div>
+            <span class="label" style="margin-top:6px">Deflection at 334 N, mm</span>
+            <div class="bar-r"><span>FEA</span><div class="track"><div class="fill" style="--w:16%"></div><span class="val">2.0</span></div></div>
+            <div class="bar-r"><span>Test</span><div class="track"><div class="fill hi" style="--w:80%"></div><span class="val">10.0</span></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stats" style="grid-template-columns:minmax(0,1fr) minmax(0,3fr);align-items:start">
+      <div class="stat red"><span class="v">2.46×</span><span class="d">more deflection than the model predicted</span></div>
+      <div class="callouts">
+        <div><h3>1 · Load path</h3><p>As the part deflected, less of the applied force was transmitted, unlike the ideal fixed loading in FEA.</p></div>
+        <div><h3>2 · Mesh quality</h3><p>Checks were local to the keyways; global quality checks would have caught skewed elements.</p></div>
+        <div><h3>3 · Anisotropy</h3><p>The model assumed isotropic nylon, but SLS layers make the part weaker across them.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SHEET 4 · HYDROPONICS -->
+  <section class="sheet" id="hydroponics" aria-labelledby="h-hydro" style="scroll-margin-top:90px">
+    <div class="sheetno">SHEET 4 OF 5</div>
+    <div class="zx" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span></div>
+    <div class="zy" aria-hidden="true"><span>A</span><span>B</span><span>C</span><span>D</span></div>
+    <div class="p-top">
+      <div>
+        <div class="dim wait"><span>PROJECT 03</span><i></i><span>GROUP · TEAM OF 7</span></div>
+        <h2 id="h-hydro">Modular indoor hydroponic system, designed for manufacture and assembly</h2>
+      </div>
+      <div class="p-num" aria-hidden="true">03</div>
+    </div>
+    <div class="meta">
+      <div><span class="label">My role</span>Concept and part selection, prototype build, DFMA part reduction</div>
+      <div><span class="label">Module</span>EN3906 Product Design</div>
+      <div><span class="label">Tools</span>SolidWorks, Boothroyd Dewhurst DFA &amp; DFM</div>
+      <div><span class="label">Volume</span>10 000 units (costing case)</div>
+    </div>
+
+    <div class="cols" style="grid-template-columns:minmax(0,1fr) minmax(0,1.6fr)">
+      <figure>
+        <div class="print contain" style="aspect-ratio:3/4"><span class="corner tl"></span><span class="corner br"></span><img src="hydro_concept.jpg" alt="Concept render of the stacked hydroponic unit with LED-lit frame, grow trays, pipework and base reservoir"></div>
+        <figcaption><span class="mono">FIG 3.1</span>Design concept.</figcaption>
+      </figure>
+      <div style="gap:16px">
+        <p>A countertop system for growing herbs and leafy greens all year without soil or sunlight, for people in flats with no outdoor space. Modules stack to about 3 m on the same 250 × 250 mm footprint.</p>
+        <p><b>My contribution.</b> I helped shape the design, from the early ideas and concepts to the choice of parts, and helped build the prototype. I also assisted with the DFMA analysis that reduced the part count.</p>
+        <div class="tablebox" style="margin-top:0">
+          <table>
+            <tbody>
+              <tr><td class="k">Slide-rail stacking</td><td>Fastener-free, tool-free modules with a ±0.2 mm clearance fit for sliding assembly.</td></tr>
+              <tr><td class="k">Gravity flow</td><td>One pump lifts nutrient to the top tray; a staircase layout returns it, so no extra pumps.</td></tr>
+              <tr><td class="k">Printable geometry</td><td>Uniform 1.5 mm walls and R10 internal corners to reduce stress and print defects.</td></tr>
+              <tr><td class="k">Interchangeable trays</td><td>3-hole and 5-hole trays share one envelope and rail interface.</td></tr>
+              <tr><td class="k">Assembly</td><td>Ten steps, no tools: slot-fit and push-fit throughout.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid4">
+      <figure><div class="print contain ar-43"><img src="hydro_frame.jpg" alt="CAD render of the structural frame"></div><figcaption>Frame</figcaption></figure>
+      <figure><div class="print contain ar-43"><img src="hydro_stair.jpg" alt="CAD render of the staircase shelf"></div><figcaption>Staircase shelf</figcaption></figure>
+      <figure><div class="print contain ar-43"><img src="hydro_tray.jpg" alt="CAD render of the three-hole grow tray"></div><figcaption>3-hole tray</figcaption></figure>
+      <figure><div class="print contain ar-43"><img src="hydro_reservoir.jpg" alt="CAD render of the base reservoir"></div><figcaption>Reservoir</figcaption></figure>
+    </div>
+
+    <div class="cols" style="margin-top:36px">
+      <div>
+        <h3>DFA: three redesign rounds</h3>
+        <div class="bars wait" style="margin-top:8px" role="img" aria-label="Assembly labour time: original 29 parts 307.9 seconds, redesign 20 parts 153.6 seconds, final 13 parts 116.5 seconds">
+          <div class="bar-r"><span>Original · 29</span><div class="track"><div class="fill" style="--w:80%"></div><span class="val">307.9 s</span></div></div>
+          <div class="bar-r"><span>Redesign · 20</span><div class="track"><div class="fill" style="--w:40%"></div><span class="val">153.6 s</span></div></div>
+          <div class="bar-r"><span>Final · 13</span><div class="track"><div class="fill hi" style="--w:30.3%"></div><span class="val">116.5 s</span></div></div>
+        </div>
+        <p style="font-size:14px;color:var(--line-dim)">Part entries and assembly labour time per round. Net pots, end caps and tray holders were merged into the trays and frame; the five remaining candidates are bought-in parts.</p>
+      </div>
+      <div class="stats" style="grid-template-columns:repeat(3,minmax(0,1fr));margin-top:0;align-content:start;display:grid">
+        <div class="stat"><span class="v">−55%</span><span class="d">parts</span></div>
+        <div class="stat"><span class="v">−62%</span><span class="d">assembly time</span></div>
+        <div class="stat"><span class="v">+134%</span><span class="d">DFA index, 10.5 → 24.7</span></div>
+      </div>
+    </div>
+
+    <div style="margin-top:32px">
+      <h3>DFM concurrent costing at 10 000 units</h3>
+      <div class="tablebox">
+        <table>
+          <thead><tr><th scope="col">Part</th><th scope="col">Cheapest route</th><th scope="col">Unit cost</th><th scope="col">Alternative</th><th scope="col">Unit cost</th></tr></thead>
+          <tbody>
+            <tr><td class="k">Reservoir</td><td>Structural foam moulding, HDPE</td><td class="n">$4.35</td><td>Injection moulding, PP</td><td class="n">$5.84</td></tr>
+            <tr><td class="k">Frame</td><td>Structural foam moulding, HDPE</td><td class="n">$4.93</td><td>Injection moulding, PP</td><td class="n">$6.44</td></tr>
+            <tr><td class="k">Tray</td><td>Thermoforming, PP</td><td class="n">$1.27</td><td>Injection moulding, PP (cheaper above ≈15 500 units)</td><td class="n">$1.56</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:16px;max-width:75ch"><b>Reflection.</b> Printed PLA is porous and softens with heat, so production parts should move to food-safe PP or HDPE. The slide rail was sensitive to print tolerances, which earlier prototyping would have caught.</p>
+    </div>
+  </section>
+
+  <!-- SHEET 5 · ABOUT -->
+  <section class="sheet" id="about" aria-labelledby="h-about" style="scroll-margin-top:90px">
+    <div class="sheetno">SHEET 5 OF 5</div>
+    <div class="zx" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span></div>
+    <div class="dim wait"><span>GENERAL NOTES</span><i></i><span>SKILLS · EXPERIENCE</span></div>
+    <h2 id="h-about">Skills and experience</h2>
+    <div class="skills">
+      <div><h3>Design &amp; CAD</h3>SolidWorks modelling and drawings, GD&amp;T and fits, DFMA (Boothroyd Dewhurst), concept to detail design.</div>
+      <div><h3>Analysis</h3>ANSYS static FEA and topology optimisation; gear, shaft, bearing and fatigue hand calculations; mesh quality checks.</div>
+      <div><h3>Test &amp; data</h3>MATLAB acquisition, filtering and GUIs; sensor calibration; load–deflection testing; Excel engineering models.</div>
+      <div><h3>Prototyping</h3>FDM (PLA) and SLS (PA2200) parts, soldering and wiring, micro:bit electronics, test rig set-up.</div>
+    </div>
+    <div class="xp">
+      <div><span class="label">2021 – present</span><h3>Engineering Assistant</h3><span>SRK Heat and Plumbing Services</span></div>
+      <div><span class="label">2026</span><h3>AI-Enabled Site Reliability Engineering</h3><span>mthree training programme</span></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <div class="titleblock" id="contact">
+    <div class="big"><span class="label">Drawn by</span><span>Kishan Rajoria</span></div>
+    <div class="contact"><span class="label">Email</span><a href="mailto:kishrajoria2005@gmail.com">kishrajoria2005@gmail.com</a></div>
+    <div class="contact"><span class="label">LinkedIn</span><a href="https://www.linkedin.com/in/kishan-rajoria-542b66416">linkedin.com/in/kishan-rajoria-542b66416</a></div>
+    <div><span class="label">Location</span>London, UK</div>
+    <div><span class="label">Title</span>Engineering portfolio</div>
+    <div><span class="label">Dwg no.</span><span class="mono">KR-2026-001</span></div>
+    <div><span class="label">Rev</span><span class="mono">A · Nov 2026</span></div>
+    <div class="wide" style="border-bottom:0"><span class="label">Notes</span>All projects completed at Cardiff University, School of Engineering. Full reports, drawings and CV available on request.</div>
+    <div style="border-bottom:0;border-right:0"><span class="label">Sheet</span><span class="mono">5 OF 5</span></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* 1. Build the gear outline in the hero (polar points, then plotted by the CSS dash animation) */
+  var g = document.getElementById('gear');
+  if (g){
+    var cx=280, cy=262, Ro=160.4, Rr=142, N=36, d='';
+    for (var i=0;i<N;i++){
+      var a0=i*2*Math.PI/N, p=2*Math.PI/N;
+      var pts=[[Rr,a0],[Rr,a0+p*0.18],[Ro,a0+p*0.34],[Ro,a0+p*0.66],[Rr,a0+p*0.82]];
+      pts.forEach(function(q,j){
+        var x=(cx+q[0]*Math.cos(q[1])).toFixed(1), y=(cy+q[0]*Math.sin(q[1])).toFixed(1);
+        d += (i===0&&j===0?'M':'L')+x+' '+y;
+      });
+    }
+    d+='Z';
+    var ns='http://www.w3.org/2000/svg';
+    function el(tag,attrs){var e=document.createElementNS(ns,tag);for(var k in attrs)e.setAttribute(k,attrs[k]);g.appendChild(e);return e;}
+    el('path',{d:d,'class':'ln draw',pathLength:'1',style:'--d:.3s'});
+    el('circle',{cx:cx,cy:cy,r:124,'class':'ln draw',pathLength:'1',style:'--d:.6s'});
+    el('circle',{cx:cx,cy:cy,r:88,'class':'ln draw',pathLength:'1',style:'--d:.8s'});
+    // bore with keyway (Ø35 → r 70; keyway 10 mm wide → 20 px half-width)
+    var kw=20, kd=13, r=70, ang=Math.asin(kw/r);
+    var sx=cx-kw, sy=cy-r*Math.cos(ang);
+    var bore='M'+sx.toFixed(1)+' '+sy.toFixed(1)+'L'+sx.toFixed(1)+' '+(cy-r-kd)+'L'+(cx+kw)+' '+(cy-r-kd)+'L'+(cx+kw)+' '+sy.toFixed(1)+'A'+r+' '+r+' 0 1 1 '+sx.toFixed(1)+' '+sy.toFixed(1)+'Z';
+    el('path',{d:bore,'class':'ln draw',pathLength:'1',style:'--d:1s'});
+    // 8 lightening pockets between hub and rim
+    for (var k=0;k<8;k++){
+      var t=(k+0.5)*Math.PI/4, rm=106;
+      var px=cx+rm*Math.cos(t), py=cy+rm*Math.sin(t);
+      el('ellipse',{cx:px.toFixed(1),cy:py.toFixed(1),rx:15,ry:10,transform:'rotate('+(t*180/Math.PI+90).toFixed(1)+' '+px.toFixed(1)+' '+py.toFixed(1)+')','class':'ln draw',pathLength:'1',style:'--d:'+(1.1+k*0.07).toFixed(2)+'s'});
+    }
+    // pitch circle, chain line
+    el('circle',{cx:cx,cy:cy,r:152,'class':'ln cl draw',pathLength:'1',style:'--d:1.4s'});
+  }
+
+  /* 2. Scroll-triggered drafting: dimension lines extend, leader callouts draw, hatched bars plot */
+  var waiters = document.querySelectorAll('.wait');
+  if (reduce || !('IntersectionObserver' in window)){
+    waiters.forEach(function(w){w.classList.remove('wait');});
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.remove('wait'); io.unobserve(e.target);} });
+    },{threshold:.35});
+    waiters.forEach(function(w){io.observe(w);});
+    // safety: everything is drawn within 4 s even if never scrolled into view
+    setTimeout(function(){waiters.forEach(function(w){w.classList.remove('wait');});},4000);
+  }
+
+  /* 3. Active sheet in the top bar */
+  var links = document.querySelectorAll('.bar nav a');
+  var map = {}; links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+  if ('IntersectionObserver' in window){
+    var so = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting && map[e.target.id]){ links.forEach(function(a){a.classList.remove('on');}); map[e.target.id].classList.add('on'); }
+      });
+    },{rootMargin:'-45% 0px -50% 0px'});
+    ['smart-glove','gearbox','hydroponics','about','contact'].forEach(function(id){var s=document.getElementById(id); if(s) so.observe(s);});
+  }
+
+})();
+</script>
+</body>
+</html>
